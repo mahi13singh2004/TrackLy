@@ -6,11 +6,11 @@ export const signup = async (req, res) => {
     try {
         const { name, email, password } = req.body
         if (!name || !email || !password) {
-            return res.status(400).json({ error: "Please fill all the fields" })
+            return res.status(400).json({ message: "Please fill all the fields" })
         }
         const userExist = await User.findOne({ email })
         if (userExist) {
-            return res.status(400).json({ error: "User Already Exist" })
+            return res.status(400).json({ message: "User Already Exist" })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
         const user = await User.create({
