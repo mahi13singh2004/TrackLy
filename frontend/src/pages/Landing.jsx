@@ -46,10 +46,10 @@ const Landing = () => {
                         <p className="text-lg text-gray-300">Welcome back, {user.name}!</p>
                         <div className="space-x-4">
                             <Link
-                                to="/dashboard"
+                                to="/applications"
                                 className="inline-block px-8 py-4 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg"
                             >
-                                Go to Dashboard
+                                View Applications
                             </Link>
                             <button
                                 onClick={handleLogout}
