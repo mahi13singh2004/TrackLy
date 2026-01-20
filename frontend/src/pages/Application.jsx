@@ -2,10 +2,8 @@ import { useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { useApplicationStore } from '../store/application.store.js'
 import { useAuthStore } from '../store/auth.store.js'
-import { useNavigate } from 'react-router-dom'
 
 const Application = () => {
-    const navigate = useNavigate()
     const {
         applications, loading, err, getApplications, updateApplication, deleteApplication
     } = useApplicationStore()
@@ -45,6 +43,12 @@ const Application = () => {
                         <p className="text-gray-300">Track your job applications and their progress</p>
                     </div>
                     <div className="flex items-center space-x-4">
+                        <Link
+                            to="/profile"
+                            className="text-purple-400 hover:text-purple-300 transition-colors duration-200"
+                        >
+                            Profile
+                        </Link>
                         <span className="text-gray-300">Welcome, {user?.name}</span>
                         <button
                             onClick={logout}
@@ -151,19 +155,7 @@ const Application = () => {
                     </div>
                 )}
 
-                {!loading && applications.length > 0 && (
-                    <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-                        {['Applied', 'Interview', 'Offer', 'Rejected'].map(status => {
-                            const count = applications.filter(app => app.status === status).length
-                            return (
-                                <div key={status} className="bg-white/10 backdrop-blur-md rounded-lg border border-white/20 p-4 text-center">
-                                    <div className="text-2xl font-bold text-white">{count}</div>
-                                    <div className="text-gray-300 text-sm">{status}</div>
-                                </div>
-                            )
-                        })}
-                    </div>
-                )}
+
             </div>
         </div>
     )

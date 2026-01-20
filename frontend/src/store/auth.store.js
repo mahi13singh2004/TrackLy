@@ -68,5 +68,14 @@ export const useAuthStore = create((set) => ({
         }
     },
 
+    getMe:async()=>{
+        try {
+            const res = await axiosInstance.get("/api/auth/getMe");
+            set({ user: res.data.user });
+        } catch (error) {
+            console.log(error);
+        }
+    },
+
     clearError: () => set({ err: null }),
 }))

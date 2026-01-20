@@ -19,7 +19,7 @@ export const signup = async (req, res) => {
             password: hashedPassword
         })
 
-        generateTokenAndSetCookie(user._id,res)
+        generateTokenAndSetCookie(user._id, res)
 
         return res.status(201).json({
             message: "User created successfully",
@@ -31,37 +31,37 @@ export const signup = async (req, res) => {
     }
     catch (error) {
         console.log("Error in signup backend auth")
-        return res.status(500).json({"message":"Internal Server Error"}) 
+        return res.status(500).json({ "message": "Internal Server Error" })
     }
 }
 
 export const login = async (req, res) => {
     try {
-        const {email,password}=req.body
-        if(!email || !password){
-            return res.status(400).json({message:"Please fill all the details"})
+        const { email, password } = req.body
+        if (!email || !password) {
+            return res.status(400).json({ message: "Please fill all the details" })
         }
-        const user=await User.findOne({email})
-        if(!user){
-            return res.status(400).json({message:"User not found"})
+        const user = await User.findOne({ email })
+        if (!user) {
+            return res.status(400).json({ message: "User not found" })
         }
-        const passwordMatch=await bcrypt.compare(password,user.password)
-        if(!passwordMatch){
-            return res.status(400).json({message:"Invalid Credentials"})
+        const passwordMatch = await bcrypt.compare(password, user.password)
+        if (!passwordMatch) {
+            return res.status(400).json({ message: "Invalid Credentials" })
         }
 
-        generateTokenAndSetCookie(user._id,res)
+        generateTokenAndSetCookie(user._id, res)
         return res.status(200).json({
-            message:"Logged in successfully",
-            user:{
+            message: "Logged in successfully",
+            user: {
                 ...user._doc,
-                password:undefined
+                password: undefined
             }
         })
-    } 
+    }
     catch (error) {
         console.log("Error in login backend auth")
-        return res.status(500).json({"message":"Internal Server Error"}) 
+        return res.status(500).json({ "message": "Internal Server Error" })
     }
 }
 
@@ -69,31 +69,46 @@ export const logout = async (req, res) => {
     try {
         res.clearCookie("token")
         return res.status(200).json({
-            message:"Logged out successfully",
+            message: "Logged out successfully",
         })
-    } 
+    }
     catch (error) {
         console.log("Error in logout backend auth")
-        return res.status(500).json({"message":"Internal Server Error"})
+        return res.status(500).json({ "message": "Internal Server Error" })
     }
 }
 
-export const checkAuth=async(req,res)=>{
+export const checkAuth = async (req, res) => {
     try {
-        const user=req.user
-        if(!user){
-            return res.status(400).json({message:"Unauthorized"})
+        const user = req.user
+        if (!user) {
+            return res.status(400).json({ message: "Unauthorized" })
         }
         return res.status(200).json({
-            message:"User is logged in",
-            user:{
+            message: "User is logged in",
+            user: {
                 ...user._doc,
-                password:undefined
+                password: undefined
             }
         })
-    } 
+    }
     catch (error) {
         console.log("Error in checkAuth backend auth")
-        return res.status(500).json({"message":"Internal Server Error"})
+        return res.status(500).json({ "message": "Internal Server Error" })
+    }
+}
+
+export const getMe = async (req, res) => {
+    try {
+        return res.status(200).json({
+            user: {
+                ...req.user._doc,
+                password: undefined
+            }
+        })
+    }
+    catch (error) {
+        console.log("Error in fetch me backend auth")
+        return res.status(500).json({ "message": "Internal Server Error" })
     }
 }
