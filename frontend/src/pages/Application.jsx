@@ -2,8 +2,10 @@ import { useEffect } from 'react'
 import { Link } from "react-router-dom"
 import { useApplicationStore } from '../store/application.store.js'
 import { useAuthStore } from '../store/auth.store.js'
+import { useNavigate } from 'react-router-dom'
 
 const Application = () => {
+    const navigate = useNavigate()
     const {
         applications, loading, err, getApplications, updateApplication, deleteApplication
     } = useApplicationStore()
@@ -124,12 +126,18 @@ const Application = () => {
                                     </div>
                                 )}
 
-                                <div className="flex space-x-2">
+                                <div className="flex space-x-2 mb-4">
                                     <Link
                                         to={`/applications/${app._id}`}
                                         className="flex-1 px-3 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 text-center"
                                     >
                                         Edit
+                                    </Link>
+                                    <Link
+                                        to={`/ai-email/${app._id}`}
+                                        className="flex-1 px-3 py-2 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition-colors duration-200 text-center"
+                                    >
+                                        AI Email
                                     </Link>
                                     <button
                                         onClick={() => handleDelete(app._id)}

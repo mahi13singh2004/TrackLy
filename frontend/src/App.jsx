@@ -9,6 +9,7 @@ import Landing from "./pages/Landing.jsx"
 import CreateApplication from "./pages/CreateApplication.jsx";
 import EditApplication from "./pages/EditApplication.jsx";
 import Application from "./pages/Application.jsx"
+import AiEmailGenerator from "./pages/AiEmailGenerator.jsx";
 
 const App = () => {
   const { checkAuth } = useAuthStore()
@@ -25,6 +26,9 @@ const App = () => {
         <Route path="/applications" element={<ProtectedRoute><Application /></ProtectedRoute>} />
         <Route path="/applications/new" element={<ProtectedRoute><CreateApplication /></ProtectedRoute>} />
         <Route path="/applications/:id" element={<ProtectedRoute><EditApplication /></ProtectedRoute>} />
+        <Route path="/ai-email" element={<ProtectedRoute><AiEmailGenerator/></ProtectedRoute>} />
+        <Route path="/ai-email/:applicationId" element={<ProtectedRoute><AiEmailGenerator/></ProtectedRoute>} />
+        
       </Routes>
     </>
   );
