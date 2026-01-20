@@ -44,6 +44,12 @@ const Application = () => {
                     </div>
                     <div className="flex items-center space-x-4">
                         <Link
+                            to="/calendar"
+                            className="text-purple-400 hover:text-purple-300 transition-colors duration-200"
+                        >
+                            Calendar
+                        </Link>
+                        <Link
                             to="/profile"
                             className="text-purple-400 hover:text-purple-300 transition-colors duration-200"
                         >
